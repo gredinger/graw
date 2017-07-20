@@ -21,6 +21,12 @@ type Account interface {
 
 	// PostLink makes a link post to a subreddit.
 	PostLink(subreddit, title, url string) error
+
+	// PostLinkFlair makes a link post to a subreddit with flair
+	PostLinkFlair(subreddit, title, url, flairText string) error
+
+	// PostSelfFlair makes a text (self) post to a subreddit with flair
+	PostSelfFlair(subreddit, title, text, flairText string) error
 }
 
 type account struct {
