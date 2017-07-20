@@ -76,3 +76,26 @@ func (a *account) PostLink(subreddit, title, url string) error {
 		},
 	)
 }
+
+func (a *account) PostLinkFlair(subreddit, title, url, flairText string) error {
+	return a.r.sow(
+		"/api/submit", map[string]string{
+			"sr":         subreddit,
+			"kind":       "link",
+			"title":      title,
+			"url":        url,
+			"flair_text": flairText,
+		},
+	)
+}
+func (a *account) PostSelfFlair(subreddit, title, text, flairText string) error {
+	return a.r.sow(
+		"/api/submit", map[string]string{
+			"sr":         subreddit,
+			"kind":       "self",
+			"title":      title,
+			"text":       text,
+			"flair_text": flairText,
+		},
+	)
+}
