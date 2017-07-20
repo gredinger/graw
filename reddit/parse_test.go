@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/turnage/graw/reddit/internal/testdata"
+	"github.com/gredinger/graw/reddit/internal/testdata"
 )
 
 func TestParse(t *testing.T) {

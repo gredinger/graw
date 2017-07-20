@@ -2,9 +2,9 @@
 package monitor
 
 import (
-	"github.com/turnage/graw/reddit"
+	"github.com/gredinger/graw/reddit"
 
-	"github.com/turnage/graw/streams/internal/rsort"
+	"github.com/gredinger/graw/streams/internal/rsort"
 )
 
 const (
