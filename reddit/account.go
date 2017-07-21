@@ -1,5 +1,9 @@
 package reddit
 
+import (
+	"fmt"
+)
+
 // Account defines behaviors only an account can perform on Reddit.
 type Account interface {
 	// Reply posts a reply to something on reddit. The behavior depends on
@@ -25,8 +29,8 @@ type Account interface {
 	// PostLinkFlair makes a link post to a subreddit with flair
 	PostLinkFlair(subreddit, title, url, flairText string) error
 
-	// PostSelfFlair makes a text (self) post to a subreddit with flair
-	PostSelfFlair(subreddit, title, text, flairText string) error
+	// FlairPost makes a text (self) post to a subreddit with flair
+	FlairPost(subreddit, link, text string) error
 }
 
 type account struct {
@@ -94,14 +98,11 @@ func (a *account) PostLinkFlair(subreddit, title, url, flairText string) error {
 		},
 	)
 }
-func (a *account) PostSelfFlair(subreddit, title, text, flairText string) error {
+func (a *account) FlairPost(subreddit, link, text string) error {
 	return a.r.sow(
-		"/api/submit", map[string]string{
-			"sr":         subreddit,
-			"kind":       "self",
-			"title":      title,
-			"text":       text,
-			"flair_text": flairText,
+		fmt.Sprintf("/r/%s/api/flair", subreddit), map[string]string{
+			"link": link,
+			"text": text,
 		},
 	)
 }

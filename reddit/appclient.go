@@ -36,6 +36,7 @@ func (a *appClient) authorize() error {
 			"privatemessages",
 			"submit",
 			"history",
+			"modflair",
 		},
 	}
 
