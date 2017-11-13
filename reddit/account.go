@@ -106,3 +106,13 @@ func (a *account) FlairPost(subreddit, link, text string) error {
 		},
 	)
 }
+
+func (a *account) SpecificSearch(subreddit, text string) error {
+	return a.r.sow(
+		fmt.Sprintf("/r/%s/search", subreddit), map[string]string{
+			"q":    text,
+			"t":    "hour",
+			"sort": "new",
+		},
+	)
+}
