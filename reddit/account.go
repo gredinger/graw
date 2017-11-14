@@ -31,6 +31,9 @@ type Account interface {
 
 	// FlairPost makes a text (self) post to a subreddit with flair
 	FlairPost(subreddit, link, text string) error
+
+	// SpecificSearch is a special search for you and me!
+	SpecificSearch(subreddit, text string) error
 }
 
 type account struct {
