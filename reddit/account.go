@@ -31,9 +31,6 @@ type Account interface {
 
 	// FlairPost makes a text (self) post to a subreddit with flair
 	FlairPost(subreddit, link, text string) error
-
-	// SpecificSearch is a special search for you and me!
-	SpecificSearch(subreddit, text string) error
 }
 
 type account struct {
@@ -106,16 +103,6 @@ func (a *account) FlairPost(subreddit, link, text string) error {
 		fmt.Sprintf("/r/%s/api/flair", subreddit), map[string]string{
 			"link": link,
 			"text": text,
-		},
-	)
-}
-
-func (a *account) SpecificSearch(subreddit, text string) error {
-	return a.r.sow(
-		fmt.Sprintf("/r/%s/search", subreddit), map[string]string{
-			"q":    text,
-			"t":    "hour",
-			"sort": "new",
 		},
 	)
 }

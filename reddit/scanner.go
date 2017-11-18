@@ -1,5 +1,7 @@
 package reddit
 
+import "fmt"
+
 // deletedAuthor is the author field of deleted posts on Reddit.
 const deletedAuthor = "[deleted]"
 
@@ -27,6 +29,9 @@ type Scanner interface {
 	// If you want a stream where all of this is handled for you, see graw
 	// or graw/streams.
 	Listing(path, after string) (Harvest, error)
+
+	// SpecificSearch is a special search for you and me!
+	SpecificSearch(subreddit, text string) (Harvest, error)
 }
 
 type scanner struct {
@@ -43,6 +48,18 @@ func (s *scanner) Listing(path, after string) (Harvest, error) {
 			"raw_json": "1",
 			"limit":    "100",
 			"before":   after,
+		},
+	)
+}
+
+func (s *scanner) SpecificSearch(subreddit, text string) (Harvest, error) {
+	return s.r.reap(
+		fmt.Sprintf("/r/%s/search", subreddit), map[string]string{
+			"raw_json": "1",
+			"limit":    "100",
+			"q":        text,
+			"t":        "day",
+			"sort":     "new",
 		},
 	)
 }
